@@ -1,0 +1,45 @@
+<div class="sticky-top laptop-screens">
+  <div class="list-group">
+    <a
+      class="list-group-item list-group-item-action"
+      [class.active]="!category"
+      routerLink="/"
+      >All Categories</a
+    >
+    <a
+      *ngFor="let c of categories$ | async"
+      routerLink="/"
+      [queryParams]="{ category: c.payload.key }"
+      [class.active]="c.payload.key === category"
+      class="list-group-item list-group-item-action"
+    >
+      {{ c.payload.val().name }}
+    </a>
+  </div>
+</div>
+
+<div class="mobile-screens">
+  <button color="primary" mat-raised-button [matMenuTriggerFor]="categoryMenu">
+    Sort By
+  </button>
+  <mat-menu #categoryMenu="matMenu">
+    <a
+      mat-menu-item
+      class="list-group-item list-group-item-action"
+      [class.bg-ccc]="!category"
+      routerLink="/"
+    >
+      All Categories
+    </a>
+    <a
+      mat-menu-item
+      *ngFor="let c of categories$ | async"
+      routerLink="/"
+      [queryParams]="{ category: c.payload.key }"
+      [class.bg-ccc]="c.payload.key === category"
+      class="list-group-item list-group-item-action"
+    >
+      {{ c.payload.val().name }}
+    </a>
+  </mat-menu>
+</div>

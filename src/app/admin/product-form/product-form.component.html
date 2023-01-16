@@ -1,0 +1,163 @@
+<div class="d-flex flex-md-row flex-column-reverse">
+  <div class="col-md-6 d-flex justify-content-center">
+    <form (ngSubmit)="save(f.value)" #f="ngForm" class="w-100">
+      <div class="form-group">
+        <mat-form-field class="full-width">
+          <mat-label>Title</mat-label>
+
+          <input
+            required
+            #title="ngModel"
+            [(ngModel)]="product.title"
+            name="title"
+            matInput
+            type="text"
+            id="title"
+            type="text"
+          />
+        </mat-form-field>
+
+        <div
+          class="alert alert-danger"
+          style="margin-top: -18px"
+          *ngIf="title.touched && title.invalid"
+        >
+          Title is required.
+        </div>
+      </div>
+
+      <div class="form-group mb-4">
+        <label for="price">Price</label>
+
+        <div
+          class="input-group"
+          [class.outline-red]="price.touched && price.invalid"
+          k
+        >
+          <span class="input-group-text">₹</span>
+          <input
+            required
+            #price="ngModel"
+            [min]="0"
+            [(ngModel)]="product.price"
+            name="price"
+            matInput
+            type="number"
+            id="price"
+            type="text"
+            class="form-control"
+          />
+        </div>
+
+        <div
+          class="alert alert-danger mt-1"
+          *ngIf="price.touched && price.invalid"
+        >
+          <div *ngIf="price.errors?.['required']">Price is required.</div>
+          <div *ngIf="price.errors?.['min']">Price should be 0 or higher.</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <mat-form-field class="full-width">
+          <mat-label>Category</mat-label>
+
+          <mat-select
+            required
+            #category="ngModel"
+            id="category"
+            [(ngModel)]="product.category"
+            name="category"
+          >
+            <mat-option
+              *ngFor="let category of categories$ | async"
+              [value]="category.payload.key"
+            >
+              {{ category.payload.val().name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <div
+          class="alert alert-danger"
+          style="margin-top: -18px"
+          *ngIf="category.touched && category.invalid"
+        >
+          Category is required.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <mat-form-field class="full-width">
+          <mat-label>Image URL</mat-label>
+
+          <input
+            required
+            url
+            #imageUrl="ngModel"
+            [(ngModel)]="product.imageUrl"
+            name="imageUrl"
+            matInput
+            type="text"
+            id="imageUrl"
+            type="text"
+          />
+        </mat-form-field>
+
+        <div
+          class="alert alert-danger"
+          style="margin-top: -18px"
+          *ngIf="imageUrl.touched && imageUrl.invalid"
+        >
+          <div *ngIf="imageUrl.errors?.['required']">
+            Image URL is required.
+          </div>
+          <div *ngIf="imageUrl.errors?.['url']">Please enter a valid URL.</div>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-sm-between">
+        <div class="d-flex gap-3">
+          <button class="btn btn-primary">Save</button>
+          <button
+            type="button"
+            routerLink="/admin/products"
+            class="btn btn-warning"
+          >
+            Discard
+          </button>
+        </div>
+        <button
+          *ngIf="id"
+          style="margin-left: 13px"
+          type="button"
+          (click)="remove()"
+          class="btn btn-danger"
+        >
+          Delete
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <div class="col-md-6 d-flex justify-content-center mb-3">
+    <div
+      [class.bg-ccc]="!product.title"
+      class="card"
+      style="width: 18rem; height: 20rem; transition: 200ms"
+    >
+      <h5 *ngIf="!product.title" class="text-center mt-4">Preview Text</h5>
+      <div>
+        <img
+          *ngIf="product.imageUrl"
+          [src]="product.imageUrl"
+          class="card-img-top"
+        />
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">{{ product.title }}</h5>
+        <p class="card-text">{{ product.price | currency : "INR" : true }}</p>
+      </div>
+    </div>
+  </div>
+</div>

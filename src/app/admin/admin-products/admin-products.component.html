@@ -1,0 +1,46 @@
+<h2 class="text-center mb-4">Product Management</h2>
+
+<div class="d-flex justify-content-center mb-3 user-select-none">
+    <a routerLink="/admin/products/new" class="btn btn-primary">New Product</a>
+</div>
+
+<div class="d-flex justify-content-center w-100 mb-2 user-select-none">
+    <mat-form-field appearance="fill" class="w-100" style="max-width: 500px;">
+        <input #filter matInput (keyup)="applyFilter(filter.value)" placeholder="Search...">
+        <button *ngIf="filter.value" matSuffix mat-icon-button aria-label="Clear"
+            (click)="applyFilter(''); filter.value=''">
+            <mat-icon>close</mat-icon>
+        </button>
+    </mat-form-field>
+</div>
+
+<div class="mat-elevation-z8">
+
+    <table mat-table [dataSource]="dataSource" matSort>
+
+        <!-- Title Column -->
+        <ng-container matColumnDef="title">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Title </th>
+            <td mat-cell *matCellDef="let product">{{ product.title }}</td>
+        </ng-container>
+
+        <!-- Price Column -->
+        <ng-container matColumnDef="price">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Price </th>
+            <td mat-cell *matCellDef="let product"> {{ product.price | currency:'INR':true }} </td>
+        </ng-container>
+
+        <!-- Edit Column -->
+        <ng-container matColumnDef="edit">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let product"><a style="text-decoration: none; user-select: none;"
+                    class="text-primary" [routerLink]="['/admin/products/', product.key]">Edit</a>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let prodcut; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 20, 30, 40, 50]" class="pb-2"></mat-paginator>
+</div>

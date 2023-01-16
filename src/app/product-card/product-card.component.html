@@ -1,0 +1,63 @@
+<div class="card mb-5 laptop-screens" style="width: 20rem; height: 23rem">
+  <img class="card-img-top" [src]="product.imageUrl" [alt]="product.title" />
+  <div class="card-body">
+    <h5 class="card-title">{{ product.title }}</h5>
+    <p class="card-text">
+      {{ product.price | currency : "INR" : "symbol" }}
+    </p>
+  </div>
+  <div class="card-footer">
+    <button
+      *ngIf="getQuantity() === 0; else updateQuantity"
+      (click)="addToCart(product)"
+      class="btn btn-success w-100"
+    >
+      Add To Cart
+    </button>
+    <ng-template #updateQuantity>
+      <div class="row g-0">
+        <div class="col-2">
+          <button class="btn btn-danger w-100">-</button>
+        </div>
+        <div class="col d-flex justify-content-center align-items-center">
+          <div>{{ getQuantity() }} in cart</div>
+        </div>
+        <div class="col-2">
+          <button class="btn btn-primary w-100">+</button>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</div>
+
+<div class="mw-100">
+  <div class="card mb-5 mobile-screens w-100">
+    <img class="card-img-top" [src]="product.imageUrl" [alt]="product.title" />
+    <div class="card-body">
+      <h5 class="card-title">{{ product.title }}</h5>
+      <p class="card-text">{{ product.price | currency : "INR" : "symbol" }}</p>
+    </div>
+    <div class="card-footer">
+      <button
+        *ngIf="getQuantity() === 0; else updateQuantity"
+        (click)="addToCart(product)"
+        class="btn btn-success w-100"
+      >
+        Add To Cart
+      </button>
+      <ng-template #updateQuantity>
+        <div class="row g-0">
+          <div class="col-2">
+            <button class="btn btn-danger w-100">-</button>
+          </div>
+          <div class="col d-flex justify-content-center align-items-center">
+            <div>{{ getQuantity() }} in cart</div>
+          </div>
+          <div class="col-2">
+            <button class="btn btn-primary w-100">+</button>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>
