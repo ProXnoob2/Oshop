@@ -2,11 +2,21 @@
   <div class="container-fluid text-white">
     <div class="d-flex">
       <a class="navbar-brand text-white" routerLink="/">Oshop</a>
-      <a
-        class="nav-item d-flex align-items-center dropdown-item laptop-screens"
-        routerLink="/shopping-cart"
-        >Shopping Cart</a
-      >
+      <div class="d-flex flex-row">
+        <a
+          class="nav-item d-flex align-items-center dropdown-item laptop-screens"
+          routerLink="/shopping-cart"
+        >
+          Shopping Cart
+          <span
+            *ngIf="cart$ | async as cart"
+            class="badge badge-pill badge-warning"
+            style="background-color: #ffc107; color: black; margin-left: 4px"
+          >
+            {{ cart.totalItemsCount }}
+          </span>
+        </a>
+      </div>
     </div>
     <ul class="navbar-nav">
       <div class="left-nav-items">
@@ -16,8 +26,8 @@
         >
           <div class="d-flex align-items-center">
             <img
-              *ngIf="appUser.photoUrl"
-              [src]="appUser.photoUrl"
+              *ngIf="appUser.imageUrl"
+              [src]="appUser.imageUrl"
               class="user-image"
             />
           </div>
@@ -44,6 +54,13 @@
               >
               <a class="dropdown-item" mat-menu-item routerLink="admin/products"
                 >Manage Products</a
+              >
+              <a
+                *ngIf="appUser.isManager"
+                class="dropdown-item"
+                mat-menu-item
+                routerLink="/manage-users"
+                >Manage Users</a
               >
             </ng-container>
             <mat-divider></mat-divider>
@@ -81,8 +98,20 @@
               class="dropdown-item mobile-screens"
               mat-menu-item
               routerLink="/shopping-cart"
-              >Shopping Cart</a
             >
+              Shopping Cart
+              <span
+                *ngIf="cart$ | async as cart"
+                class="badge badge-pill badge-warning"
+                style="
+                  background-color: #ffc107;
+                  color: black;
+                  margin-left: 4px;
+                "
+              >
+                {{ cart.totalItemsCount }}
+              </span>
+            </a>
             <div *ngIf="appUser">
               <a class="dropdown-item" mat-menu-item routerLink="/my/orders"
                 >My Orders</a
@@ -97,8 +126,15 @@
                 <a
                   class="dropdown-item"
                   mat-menu-item
-                  routerLink="admin/products"
+                  routerLink="/admin/products"
                   >Manage Products</a
+                >
+                <a
+                  *ngIf="appUser.isManager"
+                  class="dropdown-item"
+                  mat-menu-item
+                  routerLink="/manage-users"
+                  >Manage Users</a
                 >
               </ng-container>
               <mat-divider></mat-divider>

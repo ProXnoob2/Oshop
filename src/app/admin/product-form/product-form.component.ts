@@ -7,10 +7,9 @@ import { ProductService } from 'src/app/Services/product/product.service';
 @Component({
   selector: 'app-product-form',
   templateUrl: './product-form.component.html',
-  styleUrls: ['./product-form.component.scss']
+  styleUrls: ['./product-form.component.scss'],
 })
 export class ProductFormComponent {
-
   categories$!: any;
   product: any = {};
   id!: string | number | null | any;
@@ -24,11 +23,15 @@ export class ProductFormComponent {
     this.categories$ = categoryService.getCategories();
 
     this.id = this.route.snapshot.paramMap.get('id');
-    if (this.id) this.productService.get(this.id).pipe(take(1)).subscribe({
-      next: (p) => {
-        this.product = p;
-      }
-    })
+    if (this.id)
+      this.productService
+        .get(this.id)
+        .pipe(take(1))
+        .subscribe({
+          next: (p) => {
+            this.product = p;
+          },
+        });
   }
 
   save(product: any) {
@@ -39,7 +42,7 @@ export class ProductFormComponent {
   }
 
   remove() {
-    if (!confirm('Are you sure you want to delete this product?')) return
+    if (!confirm('Are you sure you want to delete this product?')) return;
     else {
       this.productService.remove(this.id);
       this.router.navigate(['/admin/products']);

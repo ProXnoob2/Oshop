@@ -34,6 +34,10 @@ import { CustomFormsModule } from 'ng2-validation';
 import { ProductFilterComponent } from './products/product-filter/product-filter.component';
 import { ProductCardComponent } from './product-card/product-card.component';
 import { ShoppingCartService } from './Services/shopping-cart/shopping-cart.service';
+import { ProductQuantityComponent } from './product-quantity/product-quantity.component';
+import { ManageUsersComponent } from './manager/manage-users/manage-users.component';
+import { ManagerAuthGuard } from './Services/manager-auth-guard/manager-auth-guard.service';
+import { ManagerUsersFormComponent } from './manager/manager-users-form/manager-users-form.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +55,9 @@ import { ShoppingCartService } from './Services/shopping-cart/shopping-cart.serv
     ProductFormComponent,
     ProductFilterComponent,
     ProductCardComponent,
+    ProductQuantityComponent,
+    ManageUsersComponent,
+    ManagerUsersFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -71,6 +78,7 @@ import { ShoppingCartService } from './Services/shopping-cart/shopping-cart.serv
     CategoryService,
     ProductService,
     ShoppingCartService,
+    ManagerAuthGuard,
   ],
   bootstrap: [AppComponent],
 })

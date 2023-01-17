@@ -142,11 +142,16 @@
 
   <div class="col-md-6 d-flex justify-content-center mb-3">
     <div
-      [class.bg-ccc]="!product.title"
+      [class.bg-ccc]="!product.title && !product.price && !product.imageUrl"
       class="card"
       style="width: 18rem; height: 20rem; transition: 200ms"
     >
-      <h5 *ngIf="!product.title" class="text-center mt-4">Preview Text</h5>
+      <h5
+        *ngIf="!product.title && !product.price && !product.imageUrl"
+        class="text-center mt-4"
+      >
+        Preview Text
+      </h5>
       <div>
         <img
           *ngIf="product.imageUrl"

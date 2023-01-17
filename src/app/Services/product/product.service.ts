@@ -4,21 +4,22 @@ import { map, Observable } from 'rxjs';
 import { Product } from 'src/app/Models/product';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ProductService {
-
-  constructor(private db: AngularFireDatabase) { }
+  constructor(private db: AngularFireDatabase) {}
 
   create(product: any) {
     return this.db.list('/products').push(product);
   }
 
   getAll(): Observable<Product[] | any> {
-    return this.db.list<Product>('/products').snapshotChanges()
+    return this.db
+      .list<Product>('/products')
+      .snapshotChanges()
       .pipe(
-        map(changes =>
-          changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
+        map((changes) =>
+          changes.map((c) => ({ key: c.payload.key, ...c.payload.val() }))
         )
       );
   }
