@@ -1,60 +1,62 @@
 <div class="d-flex flex-md-row flex-column-reverse">
   <div class="col-md-6 d-flex justify-content-center">
     <form (ngSubmit)="save(f.value)" #f="ngForm" class="w-100">
-      <div class="form-group">
-        <mat-form-field class="full-width">
-          <mat-label>Name</mat-label>
+      <div class="form-group full-width">
+        <div class="d-flex flex-column">
+          <mat-form-field class="full-width">
+            <mat-label>Name</mat-label>
 
-          <input
-            required
-            #name="ngModel"
-            [(ngModel)]="user.name"
-            name="name"
-            matInput
-            type="text"
-            id="name"
-            type="text"
-          />
-        </mat-form-field>
+            <input
+              required
+              #name="ngModel"
+              [(ngModel)]="user.displayName || user.name"
+              name="displayName"
+              matInput
+              type="text"
+              id="name"
+            />
+          </mat-form-field>
+        </div>
 
         <div
-          class="alert alert-danger"
           style="margin-top: -18px"
+          class="alert alert-danger"
           *ngIf="name.touched && name.invalid"
         >
           Name is required.
         </div>
       </div>
 
-      <mat-radio-group class="d-flex gap-4">
+      <!-- <mat-radio-group class="d-flex gap-4">
         <mat-radio-button #opt1 value="1" checked="checked"
           >Image URL</mat-radio-button
         >
         <mat-radio-button #opt2 value="2" disabled
           >Upload Image</mat-radio-button
         >
-      </mat-radio-group>
+      </mat-radio-group> -->
 
-      <div class="form-group" *ngIf="opt1.checked">
-        <mat-form-field class="full-width">
-          <mat-label>Image URL</mat-label>
+      <div class="form-group">
+        <div class="d-flex flex-column">
+          <mat-form-field class="full-width">
+            <mat-label>Image URL</mat-label>
 
-          <input
-            required
-            url
-            #imageUrl="ngModel"
-            [(ngModel)]="user.imageUrl"
-            name="imageUrl"
-            matInput
-            type="text"
-            id="imageUrl"
-            type="text"
-          />
-        </mat-form-field>
+            <input
+              required
+              url
+              #imageUrl="ngModel"
+              [(ngModel)]="user.displayImage || user.imageUrl"
+              name="displayImage"
+              matInput
+              type="text"
+              id="imageUrl"
+            />
+          </mat-form-field>
+        </div>
 
         <div
-          class="alert alert-danger"
           style="margin-top: -18px"
+          class="alert alert-danger"
           *ngIf="imageUrl.touched && imageUrl.invalid"
         >
           <div *ngIf="imageUrl.errors?.['required']">
@@ -64,15 +66,15 @@
         </div>
       </div>
 
-      <div class="form-group mb-3" *ngIf="opt2.checked">
+      <!-- <div class="form-group mb-3" *ngIf="opt2.checked">
         <button type="button" class="btn">
           <input class="form-control" type="file" value="Chose File" />
         </button>
         <button class="btn btn-info">Upload Image</button>
-      </div>
+      </div> -->
 
       <div class="d-flex gap-5">
-        <div class="form-group">
+        <div class="form-group" [hidden]="myId === userId">
           <mat-checkbox
             color="primary"
             [(ngModel)]="user.isAdmin"
@@ -81,7 +83,7 @@
           >
         </div>
 
-        <div class="form-group mb-3">
+        <div class="form-group mb-3" [hidden]="myId === userId">
           <mat-checkbox
             color="primary"
             [(ngModel)]="user.isManager"
@@ -103,7 +105,7 @@
           </button>
         </div>
         <button
-          *ngIf="userId"
+          *ngIf="myId !== userId"
           (click)="remove()"
           style="margin-left: 13px"
           type="button"
@@ -117,12 +119,12 @@
 
   <div class="col-md-6 d-flex justify-content-center mb-3">
     <div
-      [class.bg-ccc]="!user.name && !user.email && !user.photoUrl"
+      [class.bg-ccc]="!user.name && !user.email && !user.imageUrl"
       class="card"
       style="transition: 200ms; height: 18rem"
     >
       <h5
-        *ngIf="!user.name && !user.email && !user.photoUrl"
+        *ngIf="!user.name && !user.email && !user.imageUrl"
         class="text-center mt-4"
       >
         Preview Text
@@ -130,12 +132,14 @@
       <div class="d-flex justify-content-center mt-2">
         <img
           *ngIf="user.imageUrl"
-          [src]="user.imageUrl"
+          [src]="imageUrl.value"
           class="card-img-top photo"
         />
       </div>
       <div class="card-body">
-        <h5 class="card-title">{{ user.name }}</h5>
+        <h5 class="card-title">
+          {{ name.value }}
+        </h5>
         <p class="card-text">{{ user.email }}</p>
       </div>
     </div>

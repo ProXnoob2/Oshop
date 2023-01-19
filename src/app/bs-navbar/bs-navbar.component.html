@@ -27,7 +27,7 @@
           <div class="d-flex align-items-center">
             <img
               *ngIf="appUser.imageUrl"
-              [src]="appUser.imageUrl"
+              [src]="appUser.displayImage || appUser.imageUrl"
               class="user-image"
             />
           </div>
@@ -41,7 +41,7 @@
             aria-expanded="false"
             aria-haspopup="true"
           >
-            {{ appUser.name }}
+            {{ appUser.displayName || appUser.name }}
           </a>
 
           <mat-menu class="laptop-screens" #menuLaptop="matMenu">

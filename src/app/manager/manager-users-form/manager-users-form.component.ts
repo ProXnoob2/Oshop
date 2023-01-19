@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { take } from 'rxjs';
+import { Subscription, switchMap, take } from 'rxjs';
 import { AppUser } from 'src/app/Models/app-user';
+import { AuthService } from 'src/app/Services/auth/auth.service';
 import { UserService } from 'src/app/Services/user/user.service';
 
 @Component({
@@ -9,24 +10,37 @@ import { UserService } from 'src/app/Services/user/user.service';
   templateUrl: './manager-users-form.component.html',
   styleUrls: ['./manager-users-form.component.scss'],
 })
-export class ManagerUsersFormComponent {
+export class ManagerUsersFormComponent implements OnInit, OnDestroy {
   userId!: string | null | any;
-  user!: AppUser | any;
+  user: AppUser | any = <AppUser>{};
+  subscription!: Subscription;
+  myId!: any;
 
   constructor(
     private userService: UserService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private auth: AuthService
   ) {
     this.userId = this.route.snapshot.paramMap.get('id');
+  }
 
+  ngOnInit() {
+    this.handleSelfUser();
+  }
+
+  private handleSelfUser() {
     if (this.userId)
-      this.userService
-        .get(this.userId)
-        .valueChanges()
+      this.subscription = this.auth.user$
+        .pipe(
+          switchMap((loggedUser: any) => {
+            this.myId = loggedUser?.uid;
+            return this.userService.get(this.userId).valueChanges();
+          })
+        )
         .subscribe({
           next: (user) => {
-            this.user = user;
+            if (user?.name != undefined) this.user = user;
           },
         });
   }
@@ -46,5 +60,9 @@ export class ManagerUsersFormComponent {
       this.userService.remove(this.userId);
       this.router.navigate(['/manage-users']);
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

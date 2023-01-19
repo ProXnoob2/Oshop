@@ -5,22 +5,22 @@ import { AuthService } from '../Services/auth/auth.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit {
-
-  constructor(private auth: AuthService, private router: Router) { }
+export class LoginComponent {
+  constructor(private auth: AuthService) {}
 
   login() {
     this.auth.login();
   }
 
-  ngOnInit(): void {
-    this.auth.user$.subscribe({
-      next: (user) => {
-        if (user) this.router.navigate(['/']);
-      }
-    })
-  }
-
+  // ngOnInit() {
+  //   this.auth.user$.subscribe({
+  //     next: (user) => {
+  //       let returnUrl = localStorage.getItem('returnUrl');
+  //       if (user && returnUrl === null) this.router.navigate(['/']);
+  //       else return;
+  //     },
+  //   });
+  // }
 }

@@ -44,7 +44,7 @@ export class ProductsComponent implements OnInit {
       });
   }
 
-  private applyFilterOnProducts() {
+  applyFilterOnProducts() {
     this.filteredProducts = this.category
       ? this.products.filter((p) => p.category === this.category)
       : this.products;

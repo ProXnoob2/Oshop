@@ -161,7 +161,9 @@
       </div>
       <div class="card-body">
         <h5 class="card-title">{{ product.title }}</h5>
-        <p class="card-text">{{ product.price | currency : "INR" : true }}</p>
+        <p class="card-text">
+          {{ product.price | currency : "INR" : "symbol" }}
+        </p>
       </div>
     </div>
   </div>
