@@ -38,6 +38,9 @@ import { ProductQuantityComponent } from './product-quantity/product-quantity.co
 import { ManageUsersComponent } from './manager/manage-users/manage-users.component';
 import { ManagerAuthGuard } from './Services/manager-auth-guard/manager-auth-guard.service';
 import { ManagerUsersFormComponent } from './manager/manager-users-form/manager-users-form.component';
+import { OrderService } from './Services/order/order.service';
+import { ShoppingCartSummaryComponent } from './shopping-cart-summary/shopping-cart-summary.component';
+import { ShippingFormComponent } from './shipping-form/shipping-form.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +61,8 @@ import { ManagerUsersFormComponent } from './manager/manager-users-form/manager-
     ProductQuantityComponent,
     ManageUsersComponent,
     ManagerUsersFormComponent,
+    ShoppingCartSummaryComponent,
+    ShippingFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -79,6 +84,7 @@ import { ManagerUsersFormComponent } from './manager/manager-users-form/manager-
     ProductService,
     ShoppingCartService,
     ManagerAuthGuard,
+    OrderService,
   ],
   bootstrap: [AppComponent],
 })

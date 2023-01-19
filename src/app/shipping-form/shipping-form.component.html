@@ -1,0 +1,60 @@
+<h2 class="mb-3">Shipping Form</h2>
+<form (ngSubmit)="shipping = f.value; placeOrder()" #f="ngForm">
+  <div class="form-group">
+    <mat-form-field class="w-100">
+      <mat-label>Name</mat-label>
+      <input required matInput ngModel #name="ngModel" name="name" />
+    </mat-form-field>
+
+    <div *ngIf="name?.touched && name?.invalid" class="alert alert-danger">
+      Name Is Required.
+    </div>
+  </div>
+
+  <label class="user-select-none" for="address">Address</label>
+
+  <div class="form-group">
+    <mat-form-field class="w-100">
+      <input
+        required
+        matInput
+        #addressLine1="ngModel"
+        id="address"
+        ngModel
+        name="addressLine1"
+      />
+    </mat-form-field>
+
+    <div
+      *ngIf="addressLine1?.touched && addressLine1?.invalid"
+      class="alert alert-danger"
+    >
+      Address Is Required.
+    </div>
+  </div>
+
+  <div class="form-group" style="margin-top: -16px">
+    <mat-form-field class="w-100">
+      <input
+        matInput
+        #addressLine2="ngModel"
+        id="address"
+        ngModel
+        name="addressLine2"
+      />
+    </mat-form-field>
+  </div>
+
+  <div class="form-group">
+    <mat-form-field class="w-100">
+      <mat-label>City</mat-label>
+      <input required matInput #city="ngModel" ngModel name="city" />
+    </mat-form-field>
+
+    <div *ngIf="city?.touched && city?.invalid" class="alert alert-danger">
+      City Is Required.
+    </div>
+  </div>
+
+  <button [disabled]="f.invalid" class="btn btn-primary">Place Order</button>
+</form>

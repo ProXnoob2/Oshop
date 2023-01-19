@@ -25,7 +25,7 @@ const routes: Routes = [
 
   { path: 'check-out', component: CheckOutComponent, canActivate: [AuthGuard] },
   {
-    path: 'order-success',
+    path: 'order-success/:id',
     component: OrderSuccessComponent,
     canActivate: [AuthGuard],
   },
@@ -55,12 +55,12 @@ const routes: Routes = [
   {
     path: 'manage-users/:id',
     component: ManagerUsersFormComponent,
-    canActivate: [AuthGuard, AdminAuthGuard, ManagerAuthGuard],
+    canActivate: [AuthGuard, ManagerAuthGuard],
   },
   {
     path: 'manage-users',
     component: ManageUsersComponent,
-    canActivate: [AuthGuard, AdminAuthGuard, ManagerAuthGuard],
+    canActivate: [AuthGuard, ManagerAuthGuard],
   },
 ];
 

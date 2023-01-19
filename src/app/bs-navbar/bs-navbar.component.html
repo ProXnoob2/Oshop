@@ -55,14 +55,14 @@
               <a class="dropdown-item" mat-menu-item routerLink="admin/products"
                 >Manage Products</a
               >
-              <a
-                *ngIf="appUser.isManager"
-                class="dropdown-item"
-                mat-menu-item
-                routerLink="/manage-users"
-                >Manage Users</a
-              >
             </ng-container>
+            <a
+              *ngIf="appUser.isManager"
+              class="dropdown-item"
+              mat-menu-item
+              routerLink="/manage-users"
+              >Manage Users</a
+            >
             <mat-divider></mat-divider>
             <a class="dropdown-item" (click)="logout()" mat-menu-item
               ><span class="text-danger">Log Out</span></a
@@ -129,14 +129,14 @@
                   routerLink="/admin/products"
                   >Manage Products</a
                 >
-                <a
-                  *ngIf="appUser.isManager"
-                  class="dropdown-item"
-                  mat-menu-item
-                  routerLink="/manage-users"
-                  >Manage Users</a
-                >
               </ng-container>
+              <a
+                *ngIf="appUser.isManager"
+                class="dropdown-item"
+                mat-menu-item
+                routerLink="/manage-users"
+                >Manage Users</a
+              >
               <mat-divider></mat-divider>
               <a class="dropdown-item" (click)="logout()" mat-menu-item
                 ><span class="text-danger">Log Out</span></a

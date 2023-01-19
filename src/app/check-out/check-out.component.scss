@@ -1,0 +1,12 @@
+.shipping-form-container{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    margin: auto;
+    flex-direction: row;
+    gap: 40px;
+    max-width: 1024px;
+    @media (max-width: 768px){
+        flex-direction: column-reverse;
+    }
+}
