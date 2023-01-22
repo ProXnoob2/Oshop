@@ -3,6 +3,7 @@ import { ShoppingCart } from './shopping-cart';
 export class Order {
   datePlaced!: number;
   items!: any;
+  total!: number;
 
   constructor(
     public userId: string,
@@ -10,6 +11,7 @@ export class Order {
     shoppingCart: ShoppingCart
   ) {
     this.datePlaced = new Date().getTime();
+    this.total = shoppingCart.totalPrice;
 
     this.items = shoppingCart.items.map((cartItem) => {
       return {

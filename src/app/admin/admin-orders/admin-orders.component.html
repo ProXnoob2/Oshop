@@ -1,0 +1,34 @@
+<h2 class="text-center mb-3">Orders Management</h2>
+<div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Customer</th>
+        <th class="maxw-400px-none-sml">City</th>
+        <th>Date</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let order of orders$ | async">
+        <td>{{ order.shipping.name }}</td>
+        <td class="maxw-400px-none-sml">{{ order.shipping.city }}</td>
+        <td>{{ order.datePlaced | date : "mediumDate" }}</td>
+        <td class="d-flex">
+          <div>
+            <a
+              class="btn btn-sm btn-primary"
+              [routerLink]="['/order-details/', order.key]"
+              ><i class="bi bi-eye"></i
+            ></a>
+          </div>
+          <div>
+            <a (click)="remove(order.key)" class="btn btn-sm btn-danger"
+              ><i class="bi bi-trash"></i>
+            </a>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

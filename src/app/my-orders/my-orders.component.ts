@@ -1,15 +1,28 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription, switchMap } from 'rxjs';
+import { AuthService } from '../Services/auth/auth.service';
+import { OrderService } from '../Services/order/order.service';
 
 @Component({
   selector: 'app-my-orders',
   templateUrl: './my-orders.component.html',
-  styleUrls: ['./my-orders.component.scss']
+  styleUrls: ['./my-orders.component.scss'],
 })
 export class MyOrdersComponent implements OnInit {
+  userOrders$!: any;
+  subscription!: Subscription;
 
-  constructor() { }
+  constructor(private orderService: OrderService, private auth: AuthService) {}
 
   ngOnInit(): void {
+    this.userOrders$ = this.auth.user$.pipe(
+      switchMap((user: any) => {
+        return this.orderService.getOrdersByUser(user.uid);
+      })
+    );
   }
 
+  cancel(orderId: string) {
+    this.orderService.fakeOrderCancelation(orderId);
+  }
 }

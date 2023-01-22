@@ -1,0 +1,51 @@
+<div
+  class="d-flex gap-4 flex-md-row flex-column-reverse"
+  *ngIf="order$ | async as order"
+>
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-body">
+        <h2 class="card-title">Shipping Details</h2>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            <b>Name:</b> {{ order.shipping.name }}
+          </li>
+          <li class="list-group-item">
+            <b>Address:</b> {{ order.shipping.addressLine1 }},
+            <span *ngIf="order.shipping.addressLine2">
+              {{ order.shipping.addressLine2 }}</span
+            >
+          </li>
+          <li class="list-group-item">
+            <b>City:</b> {{ order.shipping.city }}
+          </li>
+        </ul>
+      </div>
+    </div>
+    <button (click)="navigateUser()" class="btn btn-primary btn-block my-3">
+      <i class="bi bi-arrow-left"></i> Back to Orders
+    </button>
+  </div>
+
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-body">
+        <h2 class="card-title">Order Summary</h2>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item" *ngFor="let item of order.items">
+            {{ item.quantity }} x {{ item.product.title }}
+            <div class="float-end">
+              {{ item.product.price * item.quantity | currency : "INR" }}
+            </div>
+          </li>
+          <li class="list-group-item" style="font-weight: bold">
+            Total
+            <div style="float: right">
+              {{ order.total | currency : "INR" : "symbol" }}
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

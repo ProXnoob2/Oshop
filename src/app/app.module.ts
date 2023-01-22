@@ -41,6 +41,7 @@ import { ManagerUsersFormComponent } from './manager/manager-users-form/manager-
 import { OrderService } from './Services/order/order.service';
 import { ShoppingCartSummaryComponent } from './shopping-cart-summary/shopping-cart-summary.component';
 import { ShippingFormComponent } from './shipping-form/shipping-form.component';
+import { ViewOrderComponent } from './view-order/view-order.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { ShippingFormComponent } from './shipping-form/shipping-form.component';
     ManagerUsersFormComponent,
     ShoppingCartSummaryComponent,
     ShippingFormComponent,
+    ViewOrderComponent,
   ],
   imports: [
     BrowserModule,
