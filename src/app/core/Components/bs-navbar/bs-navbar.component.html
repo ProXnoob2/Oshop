@@ -1,13 +1,16 @@
-<nav class="navbar navbar-expand bg-dark user-select-none">
-  <div class="container-fluid text-white">
+<nav class="navbar navbar-expand fixed-top bg-dark user-select-none">
+  <div class="container text-white">
     <div class="d-flex">
-      <a class="navbar-brand text-white" routerLink="/">Oshop</a>
+      <a class="navbar-brand text-white" routerLink="/">
+        <i class="bi bi-house"></i>
+      </a>
+
       <div class="d-flex flex-row">
         <a
-          class="nav-item d-flex align-items-center dropdown-item laptop-screens"
+          class="nav-item d-flex align-items-center dropdown-item"
           routerLink="/shopping-cart"
         >
-          Shopping Cart
+          <i class="bi bi-cart"></i>
           <span
             *ngIf="cart$ | async as cart"
             class="badge badge-pill badge-warning"
@@ -32,19 +35,30 @@
             />
           </div>
 
-          <a
-            class="nav-link dropdown-toggle text-white laptop-screens"
-            [matMenuTriggerFor]="menuLaptop"
-            role="button"
-            id="navbarToggle"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-            aria-haspopup="true"
+          <div
+            class="d-flex align-items-center"
+            style="cursor: pointer"
+            [matMenuTriggerFor]="menu"
           >
-            {{ appUser.displayName || appUser.name }}
-          </a>
+            <a class="nav-item dropdown mobile-screens">
+              <mat-icon
+                class="nav-link triple-dots text-white"
+                mat-button
+                id="navbarToggle"
+              >
+                more_vert
+              </mat-icon>
+            </a>
 
-          <mat-menu class="laptop-screens" #menuLaptop="matMenu">
+            <a
+              class="nav-link dropdown-toggle text-white laptop-screens"
+              id="navbarToggle"
+            >
+              {{ appUser.displayName || appUser.name }}
+            </a>
+          </div>
+
+          <mat-menu #menu="matMenu">
             <a class="dropdown-item" mat-menu-item routerLink="/my/orders"
               >My Orders</a
             >
@@ -81,69 +95,6 @@
             </button>
           </li>
         </ng-template>
-
-        <li
-          class="nav-item dropdown d-flex align-items-center dropdown1 mobile-screens"
-        >
-          <mat-icon
-            class="nav-link triple-dots text-white mobile-screens"
-            mat-button
-            [matMenuTriggerFor]="menuMobile"
-          >
-            more_vert
-          </mat-icon>
-
-          <mat-menu class="mobile-screens" #menuMobile="matMenu">
-            <a
-              class="dropdown-item mobile-screens"
-              mat-menu-item
-              routerLink="/shopping-cart"
-            >
-              Shopping Cart
-              <span
-                *ngIf="cart$ | async as cart"
-                class="badge badge-pill badge-warning"
-                style="
-                  background-color: #ffc107;
-                  color: black;
-                  margin-left: 4px;
-                "
-              >
-                {{ cart.totalItemsCount }}
-              </span>
-            </a>
-            <div *ngIf="appUser">
-              <a class="dropdown-item" mat-menu-item routerLink="/my/orders"
-                >My Orders</a
-              >
-              <ng-container *ngIf="appUser.isAdmin">
-                <a
-                  class="dropdown-item"
-                  mat-menu-item
-                  routerLink="/admin/orders"
-                  >Manage Orders</a
-                >
-                <a
-                  class="dropdown-item"
-                  mat-menu-item
-                  routerLink="/admin/products"
-                  >Manage Products</a
-                >
-              </ng-container>
-              <a
-                *ngIf="appUser.isManager"
-                class="dropdown-item"
-                mat-menu-item
-                routerLink="/manage-users"
-                >Manage Users</a
-              >
-              <mat-divider></mat-divider>
-              <a class="dropdown-item" (click)="logout()" mat-menu-item
-                ><span class="text-danger">Log Out</span></a
-              >
-            </div>
-          </mat-menu>
-        </li>
       </div>
     </ul>
   </div>

@@ -29,10 +29,7 @@ import { ViewOrderComponent } from './Components/view-order/view-order.component
     ViewOrderComponent,
   ],
   imports: [
-    CommonModule,
-    FormsModule,
     SharedModule,
-    MatModule,
     RouterModule.forChild([
       { path: 'products', component: ProductsComponent },
       { path: 'shopping-cart', component: ShoppingCartComponent },

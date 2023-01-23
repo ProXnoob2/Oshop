@@ -2,3 +2,5 @@ Filtering by name in my orders and manage orders;
 Hiding the table and showing no orders when there are no orders in my orders and manage orders;
 Adding a my profile page and making it like manage self user page;
 Improving the whole website specially the my orders and manage orders and order success pages;
+Making sticky and fixed top for filtering categories component on scroll;
+Making sticky and fixed navbar on scroll;

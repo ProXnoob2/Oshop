@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { MatModule } from 'app/mat.module';
 import { CustomFormsModule } from 'ng2-validation';
 import { AuthGuard } from 'shared/Services/auth-guard/auth-guard.service';
+import { SharedModule } from 'shared/shared.module';
 
 import { AdminOrdersComponent } from './Components/admin-orders/admin-orders.component';
 import { AdminProductsComponent } from './Components/admin-products/admin-products.component';
@@ -18,10 +19,7 @@ import { AdminAuthGuard } from './Services/admin-auth-guard/admin-auth-guard.ser
     ProductFormComponent,
   ],
   imports: [
-    CommonModule,
-    FormsModule,
-    MatModule,
-    CustomFormsModule,
+    SharedModule,
     RouterModule.forChild([
       {
         path: 'admin/products/new',

@@ -1,5 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import { FormsModule } from '@angular/forms';
+import { MatModule } from 'app/mat.module';
+import { CustomFormsModule } from 'ng2-validation';
 
 import { ProductCardComponent } from './Components/product-card/product-card.component';
 import { ProductQuantityComponent } from './Components/product-quantity/product-quantity.component';
@@ -13,8 +18,24 @@ import { UserService } from './Services/user/user.service';
 
 @NgModule({
   declarations: [ProductCardComponent, ProductQuantityComponent],
-  exports: [ProductCardComponent, ProductQuantityComponent],
-  imports: [CommonModule],
+  imports: [
+    CommonModule,
+    MatModule,
+    FormsModule,
+    CustomFormsModule,
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
+  ],
+  exports: [
+    ProductCardComponent,
+    ProductQuantityComponent,
+    CommonModule,
+    MatModule,
+    FormsModule,
+    CustomFormsModule,
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
+  ],
   providers: [
     AuthService,
     AuthGuard,

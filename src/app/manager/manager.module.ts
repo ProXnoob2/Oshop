@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { MatModule } from 'app/mat.module';
 import { CustomFormsModule } from 'ng2-validation';
 import { AuthGuard } from 'shared/Services/auth-guard/auth-guard.service';
+import { SharedModule } from 'shared/shared.module';
 
 import { ManageUsersComponent } from './Components/manage-users/manage-users.component';
 import { ManagerUsersFormComponent } from './Components/manager-users-form/manager-users-form.component';
@@ -13,10 +14,7 @@ import { ManagerAuthGuard } from './Services/manager-auth-guard/manager-auth-gua
 @NgModule({
   declarations: [ManageUsersComponent, ManagerUsersFormComponent],
   imports: [
-    CommonModule,
-    FormsModule,
-    MatModule,
-    CustomFormsModule,
+    SharedModule,
     RouterModule.forChild([
       {
         path: 'manage-users/:id',
