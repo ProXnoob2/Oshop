@@ -45,7 +45,7 @@ export class BsNavbarComponent implements OnInit, OnDestroy{
           this.router.navigateByUrl('/');
         })
       }
-      else this.snackbar.openSnackBar("Log out cancelled", 2000);
+      else this.snackbar.openSnackBar("Log Out Cancelled", 2000);
     })
   }
 

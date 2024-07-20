@@ -68,7 +68,7 @@ export class OrderService implements OnDestroy{
         if(res){
           setTimeout(async () => {
             await this.remove(orderId);
-            this.snackbar.openSnackBar("Order Canceled", 3000);
+            this.snackbar.openSnackBar("Order Cancelled", 3000);
           }, 1500);
         }
       })
@@ -84,7 +84,7 @@ export class OrderService implements OnDestroy{
     this.dialog$ = dialogRef.afterClosed().subscribe((res: boolean) => {
       if(res){
         this.db.list('/orders/' + orderId).remove().then(() => {
-          this.snackbar.openSnackBar("Order removed")
+          this.snackbar.openSnackBar("Order Removed")
         })
       }
     })
