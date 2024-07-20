@@ -4,7 +4,6 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { FormsModule } from '@angular/forms';
 import { MatModule } from 'app/mat.module';
-import { CustomFormsModule } from 'ng2-validation';
 
 import { ProductCardComponent } from './Components/product-card/product-card.component';
 import { ProductQuantityComponent } from './Components/product-quantity/product-quantity.component';
@@ -15,6 +14,7 @@ import { OrderService } from './Services/order/order.service';
 import { ProductService } from './Services/product/product.service';
 import { ShoppingCartService } from './Services/shopping-cart/shopping-cart.service';
 import { UserService } from './Services/user/user.service';
+import { SnackbarService } from './Services/snackbar/snackbar.service';
 
 @NgModule({
   declarations: [ProductCardComponent, ProductQuantityComponent],
@@ -22,7 +22,6 @@ import { UserService } from './Services/user/user.service';
     CommonModule,
     MatModule,
     FormsModule,
-    CustomFormsModule,
     AngularFireDatabaseModule,
     AngularFireAuthModule,
   ],
@@ -32,7 +31,6 @@ import { UserService } from './Services/user/user.service';
     CommonModule,
     MatModule,
     FormsModule,
-    CustomFormsModule,
     AngularFireDatabaseModule,
     AngularFireAuthModule,
   ],
@@ -44,6 +42,7 @@ import { UserService } from './Services/user/user.service';
     ProductService,
     ShoppingCartService,
     OrderService,
+    SnackbarService
   ],
 })
 export class SharedModule {}

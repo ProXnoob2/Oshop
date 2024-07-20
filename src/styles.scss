@@ -25,3 +25,15 @@
         display: none !important;
     }
 }
+
+.custom-snackbar {
+  .mdc-snackbar__surface {
+    background-color: rgba(33, 47, 41, 1) !important;
+  }
+
+  .mdc-snackbar__label {
+    color: white !important;
+  }
+
+  bottom: 20px;
+}

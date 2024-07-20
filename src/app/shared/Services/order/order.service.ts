@@ -3,6 +3,7 @@ import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { map } from 'rxjs';
 import { Order } from '../../Models/order';
 import { ShoppingCartService } from '../shopping-cart/shopping-cart.service';
+import { SnackbarService } from '../snackbar/snackbar.service';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +11,8 @@ import { ShoppingCartService } from '../shopping-cart/shopping-cart.service';
 export class OrderService {
   constructor(
     private db: AngularFireDatabase,
-    private cartService: ShoppingCartService
+    private cartService: ShoppingCartService,
+    private snackbar: SnackbarService
   ) {}
 
   async placeOrder(order: any) {
@@ -48,11 +50,10 @@ export class OrderService {
   }
 
   fakeOrderCancelation(orderId: string) {
-    setTimeout(() => {
-      return this.remove(orderId).then(() => {
-        alert('Order Canceled.');
-      });
-    }, 3000);
+    setTimeout(async () => {
+      await this.remove(orderId);
+      this.snackbar.openSnackBar("Order Canceled", 3000);
+    }, 1000);
   }
 
   remove(orderId: string) {
