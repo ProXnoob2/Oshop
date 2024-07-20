@@ -1,18 +1,23 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
-import { map } from 'rxjs';
+import { Subscription, map } from 'rxjs';
 import { Order } from '../../Models/order';
 import { ShoppingCartService } from '../shopping-cart/shopping-cart.service';
 import { SnackbarService } from '../snackbar/snackbar.service';
+import { ConfirmationDialogComponent } from 'shared/Components/confirmation-dialog/confirmation-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Injectable({
   providedIn: 'root',
 })
-export class OrderService {
+export class OrderService implements OnDestroy{
+  private dialog$: Subscription = new Subscription;
+
   constructor(
     private db: AngularFireDatabase,
     private cartService: ShoppingCartService,
-    private snackbar: SnackbarService
+    private snackbar: SnackbarService,
+    private dialog: MatDialog
   ) {}
 
   async placeOrder(order: any) {
@@ -49,14 +54,43 @@ export class OrderService {
     return this.db.object<Order>('/orders/' + orderId).valueChanges();
   }
 
+  // openDialogBox(action: string, timeout: number){
+  // }
+
   fakeOrderCancelation(orderId: string) {
-    setTimeout(async () => {
-      await this.remove(orderId);
-      this.snackbar.openSnackBar("Order Canceled", 3000);
-    }, 1000);
+      const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+        data: {
+          action: "Remove This Order"
+        },
+      });
+
+      this.dialog$ = dialogRef.afterClosed().subscribe((res: boolean) => {
+        if(res){
+          setTimeout(async () => {
+            await this.remove(orderId);
+            this.snackbar.openSnackBar("Order Canceled", 3000);
+          }, 1500);
+        }
+      })
   }
 
   remove(orderId: string) {
-    return this.db.list('/orders/' + orderId).remove();
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      data: {
+        action: "Remove This Order"
+      },
+    });
+
+    this.dialog$ = dialogRef.afterClosed().subscribe((res: boolean) => {
+      if(res){
+        this.db.list('/orders/' + orderId).remove().then(() => {
+          this.snackbar.openSnackBar("Order removed")
+        })
+      }
+    })
+  }
+
+  ngOnDestroy(): void {
+      this.dialog$.unsubscribe();
   }
 }

@@ -27,18 +27,18 @@ export class AuthService {
   login() {
     const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/';
     const provider = new firebase.auth.GoogleAuthProvider();
-    this.afAuth.signInWithPopup(provider).then((res) => {
+    this.afAuth.signInWithPopup(provider).then(() => {
       this.snackbar.openSnackBar("Successfully logged in", 3000)
       this.router.navigateByUrl(returnUrl)
     })
-    .catch((error) => {
+    .catch(() => {
       this.snackbar.openSnackBar("Unable to log in", 4000)
       this.router.navigateByUrl(returnUrl)
     })
   }
 
   logout() {
-    this.afAuth.signOut();
+    return this.afAuth.signOut();
   }
 
   get appUser$(): Observable<AppUser | null> {

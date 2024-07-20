@@ -1,6 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, switchMap } from 'rxjs';
+import { ConfirmationDialogComponent } from 'shared/Components/confirmation-dialog/confirmation-dialog.component';
 import { AppUser } from 'shared/Models/app-user';
 import { AuthService } from 'shared/Services/auth/auth.service';
 import { UserService } from 'shared/Services/user/user.service';
@@ -15,12 +17,14 @@ export class ManagerUsersFormComponent implements OnInit, OnDestroy {
   user: AppUser | any = <AppUser>{};
   subscription!: Subscription;
   myId!: any;
+  private dialog$: Subscription = new Subscription;
 
   constructor(
     private userService: UserService,
     private route: ActivatedRoute,
     private router: Router,
-    private auth: AuthService
+    private auth: AuthService,
+    private dialog: MatDialog
   ) {
     this.userId = this.route.snapshot.paramMap.get('id');
   }
@@ -55,11 +59,19 @@ export class ManagerUsersFormComponent implements OnInit, OnDestroy {
   }
 
   remove() {
-    if (!confirm('Are you sure you want to delete this user?')) return;
-    else {
-      this.userService.remove(this.userId);
-      this.router.navigate(['/manage-users']);
-    }
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      data: {
+        action: "Remove This User"
+      },
+    });
+
+    this.dialog$ = dialogRef.afterClosed().subscribe((res: boolean) => {
+      if(res){
+        this.userService.remove(this.userId).then(() => {
+          this.router.navigate(['/manage-users']);
+        })
+      }
+    })
   }
 
   ngOnDestroy(): void {

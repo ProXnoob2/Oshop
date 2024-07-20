@@ -1,0 +1,7 @@
+<section class="d-flex flex-column dialog-box">
+  <p mat-dialog-title>Are You Sure You Want To {{ data.action }}</p>
+  <div mat-dialog-actions class="d-flex justify-content-between">
+      <button class="btn btn-primary" (click)="onCancel()">No</button>
+      <button class="btn btn-danger" (click)="onConfirm()">Yes</button>
+  </div>
+</section>

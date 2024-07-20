@@ -17,8 +17,6 @@ export class AdminOrdersComponent implements OnInit {
   }
 
   remove(orderId: string) {
-      this.orderService.remove(orderId).then(() => {
-        this.snackbar.openSnackBar("Order removed", 1500)
-      })
+      this.orderService.remove(orderId);
   }
 }
