@@ -6,6 +6,7 @@ import { ShoppingCartService } from '../shopping-cart/shopping-cart.service';
 import { SnackbarService } from '../snackbar/snackbar.service';
 import { ConfirmationDialogComponent } from 'shared/Components/confirmation-dialog/confirmation-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { VouchersService } from '../vouchers/vouchers.service';
 
 @Injectable({
   providedIn: 'root',
@@ -17,11 +18,18 @@ export class OrderService implements OnDestroy{
     private db: AngularFireDatabase,
     private cartService: ShoppingCartService,
     private snackbar: SnackbarService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private vouchersService: VouchersService
   ) {}
 
-  async placeOrder(order: any) {
+  async placeOrder(order: Order) {
+    let voucherId = order.voucher.key;
     let result = await this.db.list('/orders').push(order);
+    if(voucherId){
+      order.voucher.limit--;
+      if(order.voucher.limit <= 0) this.vouchersService.remove(voucherId);
+      else this.vouchersService.update(voucherId, order.voucher)
+    }
     this.cartService.clearCart();
     return result;
   }

@@ -38,7 +38,22 @@
               {{ item.product.price * item.quantity | currency : "INR" }}
             </div>
           </li>
-          <li class="list-group-item" style="font-weight: bold">
+
+          <li *ngIf="order.voucher?.key" class="list-group-item" style="font-weight: bolder">
+            Original Total
+            <div style="float: right">
+              {{ order.originalTotal | currency : "INR" : "symbol" }}
+            </div>
+          </li>
+
+          <li *ngIf="order.voucher?.key" class="list-group-item" style="font-weight: bold;">
+            Voucher: {{ order.voucher.title }}
+            <div style="float: right">
+              {{ order.voucher.discountPercent }}%
+            </div>
+          </li>
+
+          <li class="list-group-item" style="font-weight: bolder">
             Total
             <div style="float: right">
               {{ order.total | currency : "INR" : "symbol" }}

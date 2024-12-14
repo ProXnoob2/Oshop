@@ -16,6 +16,7 @@ import { ShoppingCartService } from './Services/shopping-cart/shopping-cart.serv
 import { UserService } from './Services/user/user.service';
 import { SnackbarService } from './Services/snackbar/snackbar.service';
 import { ConfirmationDialogComponent } from './Components/confirmation-dialog/confirmation-dialog.component';
+import { VouchersService } from './Services/vouchers/vouchers.service';
 
 @NgModule({
   declarations: [ProductCardComponent, ProductQuantityComponent, ConfirmationDialogComponent],
@@ -45,6 +46,7 @@ import { ConfirmationDialogComponent } from './Components/confirmation-dialog/co
     ShoppingCartService,
     OrderService,
     SnackbarService,
+    VouchersService
   ],
 })
 export class SharedModule {}

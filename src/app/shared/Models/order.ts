@@ -1,16 +1,21 @@
 import { ShoppingCart } from './shopping-cart';
+import { Voucher } from './voucher';
 
 export class Order {
   datePlaced!: number;
-  items!: any;
+  originalTotal!: number;
+  voucher!: Voucher
   total!: number;
+  items!: any;
 
   constructor(
     public userId: string,
     public shipping: any,
-    shoppingCart: ShoppingCart
+    shoppingCart: ShoppingCart,
   ) {
     this.datePlaced = new Date().getTime();
+    this.originalTotal = shoppingCart.originalTotalPrice;
+    this.voucher = shoppingCart.voucher;
     this.total = shoppingCart.totalPrice;
 
     this.items = shoppingCart.items.map((cartItem) => {

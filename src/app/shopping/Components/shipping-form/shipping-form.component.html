@@ -56,5 +56,17 @@
     </div>
   </div>
 
+  <div class="form-group">
+    <mat-form-field class="w-100">
+      <mat-label>Voucher</mat-label>
+      <mat-select (selectionChange)="applyVoucher($event)" #vouch="ngModel" ngModel name="vouch">
+        <mat-option [value]="">None</mat-option>
+        <ng-container *ngFor="let voucher of vouchers">
+          <mat-option [value]="voucher">{{voucher.title}}  -  {{voucher.discountPercent}}%</mat-option>
+        </ng-container>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
   <button [disabled]="f.invalid" class="btn btn-primary">Place Order</button>
 </form>
