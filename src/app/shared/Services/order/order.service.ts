@@ -23,9 +23,9 @@ export class OrderService implements OnDestroy{
   ) {}
 
   async placeOrder(order: Order) {
-    let voucherId = order.voucher.key;
     let result = await this.db.list('/orders').push(order);
-    if(voucherId){
+    if(order.voucher){
+      let voucherId = order.voucher.key;
       order.voucher.limit--;
       if(order.voucher.limit <= 0) this.vouchersService.remove(voucherId);
       else this.vouchersService.update(voucherId, order.voucher)

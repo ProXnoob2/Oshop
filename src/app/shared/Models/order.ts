@@ -4,7 +4,7 @@ import { Voucher } from './voucher';
 export class Order {
   datePlaced!: number;
   originalTotal!: number;
-  voucher!: Voucher
+  voucher?: Voucher;
   total!: number;
   items!: any;
 

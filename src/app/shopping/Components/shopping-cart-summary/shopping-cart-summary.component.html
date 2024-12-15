@@ -12,14 +12,14 @@
         </div>
       </li>
 
-      <li *ngIf="cart.voucher?.key" class="list-group-item" style="font-weight: bolder">
+      <li *ngIf="cart.voucher" class="list-group-item" style="font-weight: bolder">
         Original Total
         <div style="float: right">
           {{ cart.originalTotalPrice | currency : "INR" : "symbol" }}
         </div>
       </li>
 
-      <li *ngIf="cart.voucher?.key" class="list-group-item" style="font-weight: bold;">
+      <li *ngIf="cart.voucher" class="list-group-item" style="font-weight: bold;">
         Voucher: {{ cart.voucher.title }}
         <div style="float: right">
           {{ cart.voucher.discountPercent }}%

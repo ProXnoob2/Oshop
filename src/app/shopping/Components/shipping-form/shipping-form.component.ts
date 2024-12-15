@@ -16,6 +16,7 @@ import { VouchersService } from 'shared/Services/vouchers/vouchers.service';
 export class ShippingFormComponent implements OnInit, OnDestroy {
   shipping = {};
   userSubscription!: Subscription;
+  vouchersSubscription!: Subscription;
   userId!: any;
   vouchers: Voucher[] = [];
 
@@ -33,20 +34,24 @@ export class ShippingFormComponent implements OnInit, OnDestroy {
       (user) => (this.userId = user?.uid)
     );
 
+    this.vouchersService.checkVouchersValidity();
     this.populateVouchers();
   }
 
   ngOnDestroy() {
     this.userSubscription.unsubscribe();
+    this.vouchersSubscription.unsubscribe();
   }
 
   async placeOrder() {
     let order = new Order(this.userId, this.shipping, this.cart);
+    console.log({order});
     let result = await this.orderService.placeOrder(order);
     this.router.navigate(['order-success', result.key]);
   }
 
   private populateVouchers() {
+    this.vouchersSubscription =
     this.vouchersService
       .getVouchers()
       .pipe(

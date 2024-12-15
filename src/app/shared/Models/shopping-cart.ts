@@ -4,7 +4,7 @@ import { Voucher } from './voucher';
 
 export class ShoppingCart {
   items: ShoppingCartItem[] = [];
-  voucher: Voucher = this.emptyVoucher;
+  voucher: any = "";
 
   constructor(private itemsMap: { [productId: string]: ShoppingCartItem }) {
     this.itemsMap = itemsMap || {};
@@ -26,7 +26,7 @@ export class ShoppingCart {
 
   applyVoucher(voucher?: Voucher){
     if(voucher) this.voucher = voucher;
-    else this.voucher = this.emptyVoucher;
+    else this.voucher = "";
   }
 
   get originalTotalPrice(){
@@ -35,7 +35,7 @@ export class ShoppingCart {
 
   get totalPrice() {
     let sum = this.calculateTotalPrice();
-    sum = sum - (this.voucher.discountPercent/100)*sum;
+    if(this.voucher) sum = sum - (this.voucher.discountPercent/100)*sum;
     return sum;
   }
 
@@ -53,12 +53,15 @@ export class ShoppingCart {
     return sum;
   }
 
-  private get emptyVoucher(){
-    return {
-      key: "",
-      title: "",
-      discountPercent: 0,
-      limit: 0
-    }
-  }
+  // private get emptyVoucher(){
+  //   return {
+  //     key: "",
+  //     title: "",
+  //     discountPercent: 0,
+  //     limit: 0,
+  //     validity: false,
+  //     lower_price_limit: 0,
+  //     upper_price_limit: 0
+  //   }
+  // }
 }
